@@ -6,5 +6,8 @@
     <string name="title_activity_lunch_list">LunchList</string>
     <string name="name_label">Name</string>
     <string name="name_hint">Restaurant Name&#8230;</string>
+    <string name="address_label">Address</string>
+    <string name="address_hint">Restaurant Address&#8230;</string>
+    <string name="save_btn">Save</string>
 
 </resources>
