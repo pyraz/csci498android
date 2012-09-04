@@ -36,27 +36,7 @@
         <RadioGroup
             android:id="@+id/types"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" >
-
-            <RadioButton
-                android:id="@+id/type_out"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:checked="true"
-                android:text="@string/type_out" />
-
-            <RadioButton
-                android:id="@+id/type_in"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/type_in" />
-
-            <RadioButton
-                android:id="@+id/type_del"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/type_del" />
-        </RadioGroup>
+            android:layout_height="wrap_content" />
 
     </TableRow>
 
