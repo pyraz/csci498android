@@ -9,5 +9,9 @@
     <string name="address_label">Address: </string>
     <string name="address_hint">Restaurant Address&#8230;</string>
     <string name="save_btn">Save</string>
+    <string name="type">Type: </string>
+    <string name="type_out">Take-Out</string>
+    <string name="type_in">Dine-In</string>
+    <string name="type_del">Delivery</string>
 
 </resources>
