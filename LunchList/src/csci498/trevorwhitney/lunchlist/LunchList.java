@@ -1,5 +1,8 @@
 package csci498.trevorwhitney.lunchlist;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import android.os.Bundle;
 import android.app.Activity;
 import android.view.View;
@@ -9,7 +12,7 @@ import android.widget.RadioGroup;
 
 public class LunchList extends Activity {
 	
-	Restaurant restaurant = new Restaurant();
+	List<Restaurant> restaurants = new ArrayList<Restaurant>();
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -22,6 +25,7 @@ public class LunchList extends Activity {
 
     private View.OnClickListener onSave = new View.OnClickListener() {	
     	public void onClick(View v) {
+    		Restaurant restaurant = new Restaurant();
 			EditText name = (EditText)findViewById(R.id.name);
 			EditText address = (EditText)findViewById(R.id.address);
 			
