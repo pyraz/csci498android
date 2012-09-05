@@ -20,9 +20,17 @@
 	
 	    <TableRow>
 	        <TextView android:text="@string/address_label" />
-	        <EditText
+
+	        <AutoCompleteTextView
 	            android:id="@+id/address"
-	            android:hint="@string/address_hint" />
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:ems="10"
+	            android:hint="@string/address_hint" >
+
+	            <requestFocus />
+	        </AutoCompleteTextView>
+
 	    </TableRow>
 	
 	    <TableRow>
