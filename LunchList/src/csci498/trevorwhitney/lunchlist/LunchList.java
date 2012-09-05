@@ -58,6 +58,9 @@ public class LunchList extends Activity {
 			}
 			
 			adapter.add(restaurant);
+			name.setText("");
+			address.setText("");
+			types.clearCheck();
 		}
 	};
 
