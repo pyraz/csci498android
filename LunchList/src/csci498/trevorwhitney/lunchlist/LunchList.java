@@ -6,13 +6,16 @@ import java.util.List;
 import android.os.Bundle;
 import android.app.Activity;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.RadioGroup;
 
 public class LunchList extends Activity {
 	
 	List<Restaurant> restaurants = new ArrayList<Restaurant>();
+	ArrayAdapter<Restaurant> adapter = null;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -21,6 +24,12 @@ public class LunchList extends Activity {
         
         Button save = (Button)findViewById(R.id.save_btn);
         save.setOnClickListener(onSave);
+        
+        ListView list = (ListView)findViewById(R.id.restaurant_list);
+        adapter = new ArrayAdapter<Restaurant>(this,
+        		android.R.layout.simple_list_item_1,
+        		restaurants);
+        list.setAdapter(adapter);
     }
 
     private View.OnClickListener onSave = new View.OnClickListener() {	
@@ -47,6 +56,8 @@ public class LunchList extends Activity {
 				restaurant.setType("delivery");
 				break;
 			}
+			
+			adapter.add(restaurant);
 		}
 	};
 
