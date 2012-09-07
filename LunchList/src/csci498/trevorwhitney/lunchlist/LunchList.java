@@ -83,7 +83,15 @@ public class LunchList extends Activity {
 			
 			if (row == null) {
 				LayoutInflater inflater = getLayoutInflater();
-				row = inflater.inflate(R.layout.restuarant_row, null);
+				switch (this.getItemViewType(position)) {
+				case 0:
+					row = inflater.inflate(R.layout.restuarant_row, null);
+					break;
+				case 1:
+					row = inflater.inflate(R.layout.restaurant_row_even, null);
+					break;
+				}
+				
 				holder = new RestaurantHolder(row);
 				row.setTag(holder);
 			}
@@ -96,6 +104,15 @@ public class LunchList extends Activity {
 			return row;
 		}
 		
+		@Override
+		public int getViewTypeCount() {
+			return 2;
+		}
+		
+		@Override
+		public int getItemViewType(int position) {
+			return position % 2;
+		}
 	}
 	
 	static class RestaurantHolder {
