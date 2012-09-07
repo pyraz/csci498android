@@ -13,5 +13,6 @@
     <string name="type_out">Take-Out</string>
     <string name="type_in">Dine-In</string>
     <string name="type_del">Delivery</string>
+    <string name="restaurant_icon_desc">Type of dining</string>
 
 </resources>
