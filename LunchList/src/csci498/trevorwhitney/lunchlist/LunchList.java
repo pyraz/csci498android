@@ -5,12 +5,16 @@ import java.util.List;
 
 import android.os.Bundle;
 import android.app.Activity;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RadioGroup;
+import android.widget.TextView;
 
 public class LunchList extends Activity {
 	
@@ -64,11 +68,42 @@ public class LunchList extends Activity {
 	
 	//Inner class for custom Restaurant adapter
 	class RestaurantAdapter extends ArrayAdapter<Restaurant> {
+		
 		RestaurantAdapter() {
 			super(LunchList.this,
 					android.R.layout.simple_list_item_1,
 					restaurants);
 		}
+		
+		public View getView(int position, View convertView,
+				ViewGroup parent) {
+			View row = convertView;
+			
+			if (row == null) {
+				LayoutInflater inflater = getLayoutInflater();
+				row = inflater.inflate(R.layout.restuarant_row, null);
+			}
+			
+			Restaurant restaurant = restaurants.get(position);
+			((TextView)row.findViewById(R.id.name)).setText(
+					restaurant.getName());
+			((TextView)row.findViewById(R.id.address)).setText(
+					restaurant.getAddress());
+			
+			ImageView icon = (ImageView)row.findViewById(R.id.icon);
+			if (restaurant.getType().equals("dine_in")) {
+				icon.setImageResource(R.drawable.ball_red);
+			} 
+			else if (restaurant.getType().equals("take_out")) {
+				icon.setImageResource(R.drawable.ball_yellow);
+			}
+			else {
+				icon.setImageResource(R.drawable.ball_green);
+			}
+			
+			return row;
+		}
+		
 	}
 
 }
