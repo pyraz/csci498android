@@ -64,7 +64,7 @@ public class LunchList extends Activity {
 			//clear form for next entry
 			name.setText("");
 			address.setText("");
-			types.clearCheck();
+			types.check(R.id.type_out);
 		}
 	};
 	
