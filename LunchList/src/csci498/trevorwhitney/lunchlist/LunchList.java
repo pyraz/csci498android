@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -21,11 +22,18 @@ public class LunchList extends TabActivity {
 	
 	List<Restaurant> restaurants = new ArrayList<Restaurant>();
 	RestaurantAdapter adapter = null;
+	EditText name = null;
+	EditText address = null;
+	RadioGroup types = null;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 	  super.onCreate(savedInstanceState);
 	  setContentView(R.layout.activity_lunch_list);
+	  
+	  name = (EditText)findViewById(R.id.name);
+	  address = (EditText)findViewById(R.id.address);
+	  types = (RadioGroup)findViewById(R.id.types);
 	  
 	  Button save = (Button)findViewById(R.id.save_btn);
 	  save.setOnClickListener(onSave);
@@ -33,6 +41,7 @@ public class LunchList extends TabActivity {
 	  ListView list = (ListView)findViewById(R.id.restaurant_list);
 	  adapter = new RestaurantAdapter();
 	  list.setAdapter(adapter);
+	  list.setOnItemClickListener(onListClick);
 	  
 	  TabHost.TabSpec spec = getTabHost().newTabSpec("tag1");
 	  spec.setContent(R.id.restaurant_list);
@@ -52,14 +61,9 @@ public class LunchList extends TabActivity {
 	private View.OnClickListener onSave = new View.OnClickListener() {	
 		public void onClick(View v) {
     	Restaurant restaurant = new Restaurant();
-			EditText name = (EditText)findViewById(R.id.name);
-			EditText address = (EditText)findViewById(R.id.address);
-			
 			restaurant.setName(name.getText().toString());
 			restaurant.setAddress(address.getText().toString());
-			
-			RadioGroup types = (RadioGroup)findViewById(R.id.types);
-			
+
 			switch (types.getCheckedRadioButtonId()) {
 			case R.id.type_in:
 				restaurant.setType("dine_in");
@@ -82,6 +86,28 @@ public class LunchList extends TabActivity {
 			types.check(R.id.type_out);
 		}
 	};
+	
+	private AdapterView.OnItemClickListener onListClick = new
+			AdapterView.OnItemClickListener() {
+				public void onItemClick(AdapterView<?> parent,
+						View view, int position, long id) {
+					Restaurant restaurant = restaurants.get(position);
+					name.setText(restaurant.getName());
+					address.setText(restaurant.getAddress());
+					
+					if (restaurant.getType().equals("dine_in")) {
+						types.check(R.id.type_in);
+					}
+					else if (restaurant.getType().equals("take_out")) {
+						types.check(R.id.type_out);
+					}
+					else {
+						types.check(R.id.type_del);
+					}
+					
+					getTabHost().setCurrentTab(1);
+				}
+			};
 	
 	class RestaurantAdapter extends ArrayAdapter<Restaurant> {
 		
