@@ -15,7 +15,7 @@ import android.widget.RadioGroup;
 public class LunchList extends Activity {
 	
 	List<Restaurant> restaurants = new ArrayList<Restaurant>();
-	ArrayAdapter<Restaurant> adapter = null;
+	RestaurantAdapter adapter = null;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -26,9 +26,7 @@ public class LunchList extends Activity {
         save.setOnClickListener(onSave);
         
         ListView list = (ListView)findViewById(R.id.restaurant_list);
-        adapter = new ArrayAdapter<Restaurant>(this,
-        		android.R.layout.simple_list_item_1,
-        		restaurants);
+        adapter = new RestaurantAdapter();
         list.setAdapter(adapter);
     }
 
@@ -63,5 +61,14 @@ public class LunchList extends Activity {
 			types.clearCheck();
 		}
 	};
+	
+	//Inner class for custom Restaurant adapter
+	class RestaurantAdapter extends ArrayAdapter<Restaurant> {
+		RestaurantAdapter() {
+			super(LunchList.this,
+					android.R.layout.simple_list_item_1,
+					restaurants);
+		}
+	}
 
 }
