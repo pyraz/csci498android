@@ -1,4 +1,4 @@
 -Finish ch. 2-5 of APT plus extra credit in seperate branch
 	-remember to push local branch upstream (-u)
 
-##Currently at ch. 2 step 3
+##Currently at ch.5 EC
