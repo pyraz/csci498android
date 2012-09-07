@@ -23,15 +23,15 @@ public class LunchList extends Activity {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_lunch_list);
-        
-        Button save = (Button)findViewById(R.id.save_btn);
-        save.setOnClickListener(onSave);
-        
-        ListView list = (ListView)findViewById(R.id.restaurant_list);
-        adapter = new RestaurantAdapter();
-        list.setAdapter(adapter);
+      super.onCreate(savedInstanceState);
+      setContentView(R.layout.activity_lunch_list);
+      
+      Button save = (Button)findViewById(R.id.save_btn);
+      save.setOnClickListener(onSave);
+      
+      ListView list = (ListView)findViewById(R.id.restaurant_list);
+      adapter = new RestaurantAdapter();
+      list.setAdapter(adapter);
     }
 
     private View.OnClickListener onSave = new View.OnClickListener() {	
@@ -104,6 +104,33 @@ public class LunchList extends Activity {
 			return row;
 		}
 		
+	}
+	
+	static class RestaurantHolder {
+		private TextView name = null;
+		private TextView address = null;
+		private ImageView icon = null;
+		
+		RestaurantHolder(View row) {
+			name = (TextView)row.findViewById(R.id.name);
+			address = (TextView)row.findViewById(R.id.address);
+			icon = (ImageView)row.findViewById(R.id.icon);
+		}
+		
+		void populateForm(Restaurant restaurant) {
+			name.setText(restaurant.getName());
+			address.setText(restaurant.getAddress());
+			
+			if (restaurant.getType().equals("dine_in")) {
+				icon.setImageResource(R.drawable.ball_red);
+			}
+			else if (restaurant.getType().equals("take_out")) {
+				icon.setImageResource(R.drawable.ball_yellow);
+			}
+			else {
+				icon.setImageResource(R.drawable.ball_green);
+			}
+		}
 	}
 
 }
