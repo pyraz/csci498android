@@ -3,8 +3,8 @@ package csci498.trevorwhitney.lunchlist;
 import java.util.ArrayList;
 import java.util.List;
 
-import android.os.Bundle;
 import android.app.Activity;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,22 +21,22 @@ public class LunchList extends Activity {
 	List<Restaurant> restaurants = new ArrayList<Restaurant>();
 	RestaurantAdapter adapter = null;
 
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-      super.onCreate(savedInstanceState);
-      setContentView(R.layout.activity_lunch_list);
-      
-      Button save = (Button)findViewById(R.id.save_btn);
-      save.setOnClickListener(onSave);
-      
-      ListView list = (ListView)findViewById(R.id.restaurant_list);
-      adapter = new RestaurantAdapter();
-      list.setAdapter(adapter);
-    }
+	@Override
+	public void onCreate(Bundle savedInstanceState) {
+	  super.onCreate(savedInstanceState);
+	  setContentView(R.layout.activity_lunch_list);
+	  
+	  Button save = (Button)findViewById(R.id.save_btn);
+	  save.setOnClickListener(onSave);
+	  
+	  ListView list = (ListView)findViewById(R.id.restaurant_list);
+	  adapter = new RestaurantAdapter();
+	  list.setAdapter(adapter);
+	}
 
-    private View.OnClickListener onSave = new View.OnClickListener() {	
-    	public void onClick(View v) {
-    		Restaurant restaurant = new Restaurant();
+	private View.OnClickListener onSave = new View.OnClickListener() {	
+		public void onClick(View v) {
+    	Restaurant restaurant = new Restaurant();
 			EditText name = (EditText)findViewById(R.id.name);
 			EditText address = (EditText)findViewById(R.id.address);
 			
@@ -60,13 +60,14 @@ public class LunchList extends Activity {
 			}
 			
 			adapter.add(restaurant);
+			
+			//clear form for next entry
 			name.setText("");
 			address.setText("");
 			types.clearCheck();
 		}
 	};
 	
-	//Inner class for custom Restaurant adapter
 	class RestaurantAdapter extends ArrayAdapter<Restaurant> {
 		
 		RestaurantAdapter() {
@@ -78,28 +79,19 @@ public class LunchList extends Activity {
 		public View getView(int position, View convertView,
 				ViewGroup parent) {
 			View row = convertView;
+			RestaurantHolder holder = null;
 			
 			if (row == null) {
 				LayoutInflater inflater = getLayoutInflater();
 				row = inflater.inflate(R.layout.restuarant_row, null);
-			}
-			
-			Restaurant restaurant = restaurants.get(position);
-			((TextView)row.findViewById(R.id.name)).setText(
-					restaurant.getName());
-			((TextView)row.findViewById(R.id.address)).setText(
-					restaurant.getAddress());
-			
-			ImageView icon = (ImageView)row.findViewById(R.id.icon);
-			if (restaurant.getType().equals("dine_in")) {
-				icon.setImageResource(R.drawable.ball_red);
-			} 
-			else if (restaurant.getType().equals("take_out")) {
-				icon.setImageResource(R.drawable.ball_yellow);
+				holder = new RestaurantHolder(row);
+				row.setTag(holder);
 			}
 			else {
-				icon.setImageResource(R.drawable.ball_green);
+				holder = (RestaurantHolder)row.getTag();
 			}
+			
+			holder.populateList(restaurants.get(position));
 			
 			return row;
 		}
@@ -117,7 +109,7 @@ public class LunchList extends Activity {
 			icon = (ImageView)row.findViewById(R.id.icon);
 		}
 		
-		void populateForm(Restaurant restaurant) {
+		void populateList(Restaurant restaurant) {
 			name.setText(restaurant.getName());
 			address.setText(restaurant.getAddress());
 			
