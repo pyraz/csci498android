@@ -3,7 +3,10 @@ package csci498.trevorwhitney.lunchlist;
 import java.util.ArrayList;
 import java.util.List;
 
+import android.app.AlertDialog;
+import android.app.Dialog;
 import android.app.TabActivity;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -23,6 +26,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class LunchList extends TabActivity {
+	
+	static final int DIALOG_TOAST_ID = 0;
 	
 	List<Restaurant> restaurants = new ArrayList<Restaurant>();
 	RestaurantAdapter adapter = null;
@@ -71,22 +76,56 @@ public class LunchList extends TabActivity {
 		
 		return super.onCreateOptionsMenu(menu);
 	}
+
 	
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		if (item.getItemId() == R.id.toast) {
-			String message = "No restuarant selected";
-			
-			if (current != null) {
-				message = current.getNotes();
-			}
-			
-			Toast.makeText(this, message, Toast.LENGTH_LONG).show();
+			showDialog(DIALOG_TOAST_ID);
 			
 			return true;
 		}
 		
 		return super.onOptionsItemSelected(item);
+	}
+	
+	@Override
+	protected Dialog onCreateDialog(int id) {
+		Dialog dialog;
+		switch(id) {
+		case DIALOG_TOAST_ID:
+			String message = "No restuarant selected";
+			
+			dialog = new AlertDialog.Builder(this)
+			.setMessage(message)
+			.setCancelable(false)
+			.setNeutralButton("Ok", 
+					new DialogInterface.OnClickListener() {	
+						public void onClick(DialogInterface dialog, 
+								int which) {
+							dialog.dismiss();
+						}
+					})
+			.create();
+			break;
+		default:
+			dialog = null;
+		}
+		
+		return dialog;
+	}
+	
+	@Override
+	protected void onPrepareDialog(int id, Dialog dialog) {
+		super.onPrepareDialog(id, dialog);
+		
+		switch(id) {
+		case DIALOG_TOAST_ID:
+			if (current != null) {
+				String message = current.getNotes();
+				((AlertDialog)dialog).setMessage(message);
+			}
+		}
 	}
 
 	private View.OnClickListener onSave = new View.OnClickListener() {	
