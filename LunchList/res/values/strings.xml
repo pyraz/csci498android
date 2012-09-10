@@ -16,5 +16,7 @@
     <string name="restaurant_icon_desc">Type of dining</string>
     <string name="notes">Notes: </string>
     <string name="toast">Raise Toast</string>
+    <string name="menu_list">List Restaurants</string>
+    <string name="menu_details">Show Details</string>
 
 </resources>

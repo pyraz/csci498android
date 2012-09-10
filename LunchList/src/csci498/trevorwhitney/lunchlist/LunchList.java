@@ -85,6 +85,12 @@ public class LunchList extends TabActivity {
 			
 			return true;
 		}
+		else if (item.getItemId() == R.id.menu_list) {
+			getTabHost().setCurrentTab(0);
+		}
+		else if (item.getItemId() == R.id.menu_details) {
+			getTabHost().setCurrentTab(1);
+		}
 		
 		return super.onOptionsItemSelected(item);
 	}
