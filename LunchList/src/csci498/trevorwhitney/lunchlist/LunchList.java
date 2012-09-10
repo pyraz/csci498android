@@ -1,6 +1,7 @@
 package csci498.trevorwhitney.lunchlist;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import android.app.TabActivity;
@@ -11,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -25,6 +27,7 @@ public class LunchList extends TabActivity {
 	EditText name = null;
 	EditText address = null;
 	RadioGroup types = null;
+	DatePicker lastVisited = null;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -34,6 +37,7 @@ public class LunchList extends TabActivity {
 	  name = (EditText)findViewById(R.id.name);
 	  address = (EditText)findViewById(R.id.address);
 	  types = (RadioGroup)findViewById(R.id.types);
+	  lastVisited = (DatePicker)findViewById(R.id.last_visited);
 	  
 	  Button save = (Button)findViewById(R.id.save_btn);
 	  save.setOnClickListener(onSave);
@@ -63,6 +67,9 @@ public class LunchList extends TabActivity {
     	Restaurant restaurant = new Restaurant();
 			restaurant.setName(name.getText().toString());
 			restaurant.setAddress(address.getText().toString());
+			restaurant.setLastVisited(new Date(lastVisited.getYear(),
+					lastVisited.getMonth(), lastVisited.getDayOfMonth()));
+			//System.out.println(restaurant.getLastVisited().toString());
 
 			switch (types.getCheckedRadioButtonId()) {
 			case R.id.type_in:
@@ -84,6 +91,10 @@ public class LunchList extends TabActivity {
 			name.setText("");
 			address.setText("");
 			types.check(R.id.type_out);
+			Date today = new Date();
+			System.out.println(today.toString());
+			lastVisited.updateDate(today.getYear(), today.getMonth(), 
+					today.getDate());
 		}
 	};
 	
@@ -94,6 +105,9 @@ public class LunchList extends TabActivity {
 					Restaurant restaurant = restaurants.get(position);
 					name.setText(restaurant.getName());
 					address.setText(restaurant.getAddress());
+					Date date = restaurant.getLastVisited();
+					lastVisited.updateDate(date.getYear(), 
+							date.getMonth(), date.getDate());
 					
 					if (restaurant.getType().equals("dine_in")) {
 						types.check(R.id.type_in);

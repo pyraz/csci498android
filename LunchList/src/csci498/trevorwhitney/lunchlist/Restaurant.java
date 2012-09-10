@@ -1,10 +1,13 @@
 package csci498.trevorwhitney.lunchlist;
 
+import java.util.Date;
+
 public class Restaurant {
 	
 	private String name = "";
 	private String address = "";
 	private String type = "";
+	private Date lastVisited;
 	
 	public String getName() {
 		return name;
@@ -23,6 +26,12 @@ public class Restaurant {
 	}
 	public void setType(String type) {
 		this.type = type;
+	}
+	public Date getLastVisited() {
+		return lastVisited;
+	}
+	public void setLastVisited(Date lastVisited) {
+		this.lastVisited = lastVisited;
 	}
 	
 	public String toString() {

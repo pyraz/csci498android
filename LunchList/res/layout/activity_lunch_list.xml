@@ -59,6 +59,11 @@
 									android:text="@string/type_del" />
 					</RadioGroup>
 				</TableRow>
+				
+				<TableRow>
+						<TextView android:text="@string/last_visited" />
+						<DatePicker android:id="@+id/last_visited" />
+				</TableRow>
 
 				<Button
 						android:id="@+id/save_btn"

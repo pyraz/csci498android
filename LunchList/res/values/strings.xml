@@ -14,5 +14,7 @@
     <string name="type_in">Dine-In</string>
     <string name="type_del">Delivery</string>
     <string name="restaurant_icon_desc">Type of dining</string>
+    <string name="last_visited">Last Visited: </string>
+    <string name="pick_date">Select Date</string>
 
 </resources>
