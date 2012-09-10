@@ -3,7 +3,7 @@ package csci498.trevorwhitney.lunchlist;
 import java.util.ArrayList;
 import java.util.List;
 
-import android.app.TabActivity;
+import android.app.Activity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,16 +15,17 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RadioGroup;
-import android.widget.TabHost;
 import android.widget.TextView;
+import android.widget.ViewFlipper;
 
-public class LunchList extends TabActivity {
+public class LunchList extends Activity {
 	
 	List<Restaurant> restaurants = new ArrayList<Restaurant>();
 	RestaurantAdapter adapter = null;
 	EditText name = null;
 	EditText address = null;
 	RadioGroup types = null;
+	ViewFlipper flipper = null;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -34,28 +35,22 @@ public class LunchList extends TabActivity {
 	  name = (EditText)findViewById(R.id.name);
 	  address = (EditText)findViewById(R.id.address);
 	  types = (RadioGroup)findViewById(R.id.types);
+	  flipper = (ViewFlipper)findViewById(R.id.flipper);
 	  
 	  Button save = (Button)findViewById(R.id.save_btn);
 	  save.setOnClickListener(onSave);
+	  
+	  Button flipToDetails = (Button)findViewById(R.id.view_details);
+	  flipToDetails.setOnClickListener(onFlipClick);
+	  
+	  Button flipToList = (Button)findViewById(R.id.view_list);
+	  flipToList.setOnClickListener(onFlipClick);
+	  
 	  
 	  ListView list = (ListView)findViewById(R.id.restaurant_list);
 	  adapter = new RestaurantAdapter();
 	  list.setAdapter(adapter);
 	  list.setOnItemClickListener(onListClick);
-	  
-	  TabHost.TabSpec spec = getTabHost().newTabSpec("tag1");
-	  spec.setContent(R.id.restaurant_list);
-	  spec.setIndicator("List", getResources().getDrawable(
-	  		R.drawable.list));
-	  getTabHost().addTab(spec);
-	  
-	  spec = getTabHost().newTabSpec("tag2");
-	  spec.setContent(R.id.details_form);
-	  spec.setIndicator("Details", getResources().getDrawable(
-	  		R.drawable.restaurant));
-	  getTabHost().addTab(spec);
-	  
-	  getTabHost().setCurrentTab(0);
 	}
 
 	private View.OnClickListener onSave = new View.OnClickListener() {	
@@ -87,6 +82,19 @@ public class LunchList extends TabActivity {
 		}
 	};
 	
+	private View.OnClickListener onFlipClick = new View.OnClickListener() {
+		public void onClick(View v) {
+			Button flipToDetails = (Button)findViewById(R.id.view_details);
+			
+			if (v == flipToDetails) {
+				flipper.showNext();
+			}
+			else {
+				flipper.showPrevious();
+			}
+		}
+	};
+	
 	private AdapterView.OnItemClickListener onListClick = new
 			AdapterView.OnItemClickListener() {
 				public void onItemClick(AdapterView<?> parent,
@@ -105,7 +113,7 @@ public class LunchList extends TabActivity {
 						types.check(R.id.type_del);
 					}
 					
-					getTabHost().setCurrentTab(1);
+					flipper.showNext();
 				}
 			};
 	
