@@ -28,6 +28,7 @@ import android.widget.Toast;
 public class LunchList extends TabActivity {
 	
 	static final int DIALOG_TOAST_ID = 0;
+	static final int DIALOG_ERROR_ID = 1;
 	
 	List<Restaurant> restaurants = new ArrayList<Restaurant>();
 	RestaurantAdapter adapter = null;
@@ -36,38 +37,49 @@ public class LunchList extends TabActivity {
 	EditText address = null;
 	EditText notes = null;
 	RadioGroup types = null;
+	Exception exception = null;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
-	  super.onCreate(savedInstanceState);
-	  setContentView(R.layout.activity_lunch_list);
+	  try {
+			super.onCreate(savedInstanceState);
+		  setContentView(R.layout.activity_lunch_list);
+		  
+		  name = (EditText)findViewById(R.id.name);
+		  address = (EditText)findViewById(R.id.address);
+		  notes = (EditText)findViewById(R.id.notes);
+		  types = (RadioGroup)findViewById(R.id.types);
+		  
+		  Button save = (Button)findViewById(R.id.save_btn);
+		  save.setOnClickListener(onSave);
+		  
+		  ListView list = (ListView)findViewById(R.id.restaurant_list);
+		  adapter = new RestaurantAdapter();
+		  list.setAdapter(adapter);
+		  list.setOnItemClickListener(onListClick);
+		  
+		  TabHost.TabSpec spec = getTabHost().newTabSpec("tag1");
+		  spec.setContent(R.id.restaurant_list);
+		  spec.setIndicator("List", getResources().getDrawable(
+		  		R.drawable.list));
+		  getTabHost().addTab(spec);
+		  
+		  spec = getTabHost().newTabSpec("tag2");
+		  spec.setContent(R.id.details_form);
+		  spec.setIndicator("Details", getResources().getDrawable(
+		  		R.drawable.restaurant));
+		  getTabHost().addTab(spec);
+		  
+		  getTabHost().setCurrentTab(0);
+		  
+		  //purposefully raise divide by zero exception
+		  int error = 1/0;
+	  }
+	  catch (Exception e) {
+			exception = e;
+			showDialog(DIALOG_ERROR_ID);
+	  }
 	  
-	  name = (EditText)findViewById(R.id.name);
-	  address = (EditText)findViewById(R.id.address);
-	  notes = (EditText)findViewById(R.id.notes);
-	  types = (RadioGroup)findViewById(R.id.types);
-	  
-	  Button save = (Button)findViewById(R.id.save_btn);
-	  save.setOnClickListener(onSave);
-	  
-	  ListView list = (ListView)findViewById(R.id.restaurant_list);
-	  adapter = new RestaurantAdapter();
-	  list.setAdapter(adapter);
-	  list.setOnItemClickListener(onListClick);
-	  
-	  TabHost.TabSpec spec = getTabHost().newTabSpec("tag1");
-	  spec.setContent(R.id.restaurant_list);
-	  spec.setIndicator("List", getResources().getDrawable(
-	  		R.drawable.list));
-	  getTabHost().addTab(spec);
-	  
-	  spec = getTabHost().newTabSpec("tag2");
-	  spec.setContent(R.id.details_form);
-	  spec.setIndicator("Details", getResources().getDrawable(
-	  		R.drawable.restaurant));
-	  getTabHost().addTab(spec);
-	  
-	  getTabHost().setCurrentTab(0);
 	}
 	
 	@Override
@@ -97,16 +109,35 @@ public class LunchList extends TabActivity {
 			String message = "No restuarant selected";
 			
 			dialog = new AlertDialog.Builder(this)
-			.setMessage(message)
-			.setCancelable(false)
-			.setNeutralButton("Ok", 
-					new DialogInterface.OnClickListener() {	
-						public void onClick(DialogInterface dialog, 
-								int which) {
-							dialog.dismiss();
-						}
-					})
-			.create();
+					.setMessage(message)
+					.setCancelable(false)
+					.setNeutralButton("Ok", 
+							new DialogInterface.OnClickListener() {	
+								public void onClick(DialogInterface dialog, 
+										int which) {	dialog.dismiss(); }	
+							})
+					.create();
+			break;
+		case DIALOG_ERROR_ID:
+			String error_message = "Information unavailable.";
+			
+			if (exception != null) {
+				StackTraceElement[] stackTrace = exception.getStackTrace();
+				error_message = "A " + exception.getMessage() + 
+						" exception occured on line " + 
+						stackTrace[0].getLineNumber() + ".";
+			}	
+			
+			dialog = new AlertDialog.Builder(LunchList.this)
+					.setCancelable(false)
+					.setTitle("An Error Occured")
+					.setNeutralButton("Ok",
+							new DialogInterface.OnClickListener() {
+								public void onClick(DialogInterface dialog, 
+										int which) {	dialog.dismiss();	}
+							})
+					.setMessage(error_message)
+					.create();
 			break;
 		default:
 			dialog = null;
@@ -125,6 +156,18 @@ public class LunchList extends TabActivity {
 				String message = current.getNotes();
 				((AlertDialog)dialog).setMessage(message);
 			}
+			break;
+		case DIALOG_ERROR_ID:
+			if (exception != null) {
+				StackTraceElement[] stackTrace = exception.getStackTrace();
+				
+				String error_message = "A " + exception.getMessage() + 
+						" exception occured on line " + 
+						stackTrace[0].getLineNumber() + ".";
+				
+				((AlertDialog)dialog).setMessage(error_message);
+			}
+		break;
 		}
 	}
 
