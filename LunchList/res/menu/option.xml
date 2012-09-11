@@ -2,4 +2,7 @@
     <item android:id="@+id/toast"
         android:title="@string/toast"
         android:icon="@drawable/toast"/>
+    <item android:id="@+id/run"
+    		android:title="@string/run"
+    		android:icon="@drawable/run" />
 </menu>
