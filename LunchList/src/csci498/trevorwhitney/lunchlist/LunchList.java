@@ -119,7 +119,11 @@ public class LunchList extends TabActivity {
 			
 			runOnUiThread(new Runnable() {
 				public void run() {
+					String message = "Background task complete";
+					
 					setProgressBarVisibility(false);
+					Toast.makeText(LunchList.this, message, Toast.LENGTH_LONG)
+							.show();
 				}
 			});
 		}
