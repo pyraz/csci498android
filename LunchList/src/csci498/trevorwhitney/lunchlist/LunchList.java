@@ -5,6 +5,7 @@ import java.util.List;
 
 import android.app.TabActivity;
 import android.os.Bundle;
+import android.os.Handler;
 import android.os.SystemClock;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -34,6 +35,7 @@ public class LunchList extends TabActivity {
 	EditText notes = null;
 	RadioGroup types = null;
 	int progress = 0;
+	Handler handler = new Handler();
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -101,12 +103,14 @@ public class LunchList extends TabActivity {
 	}
 	
 	private void doSomeLongWork(final int incr) {
-		runOnUiThread(new Runnable() {
+		Runnable updateProgress = new Runnable() {
 			public void run() {
 				progress += incr;
 				setProgress(progress);
 			}
-		});
+		};
+		
+		handler.post(updateProgress);
 		
 		SystemClock.sleep(250); //Simulation of long running process
 	}
@@ -117,13 +121,20 @@ public class LunchList extends TabActivity {
 				doSomeLongWork(500);
 			}
 			
-			runOnUiThread(new Runnable() {
+			final String message = "Background process finished";
+			Runnable closeProgressBar = new Runnable() {
 				public void run() {
 					setProgressBarVisibility(false);
+					Toast.makeText(LunchList.this, message, Toast.LENGTH_LONG)
+							.show();
 				}
-			});
+			};
+			
+			handler.post(closeProgressBar);
 		}
 	};
+	
+	
 
 	private View.OnClickListener onSave = new View.OnClickListener() {	
 		public void onClick(View v) {
