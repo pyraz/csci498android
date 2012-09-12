@@ -2,9 +2,11 @@ package csci498.trevorwhitney.lunchlist;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.LinkedBlockingQueue;
 
 import android.app.TabActivity;
 import android.os.Bundle;
+import android.os.Handler;
 import android.os.SystemClock;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -34,6 +36,8 @@ public class LunchList extends TabActivity {
 	EditText notes = null;
 	RadioGroup types = null;
 	int progress = 0;
+	LinkedBlockingQueue<Runnable> queue = null;
+	Handler handler = new Handler();
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -67,6 +71,43 @@ public class LunchList extends TabActivity {
 	  getTabHost().addTab(spec);
 	  
 	  getTabHost().setCurrentTab(0);
+	  
+	  queue = new LinkedBlockingQueue<Runnable>();
+	  
+	  Runnable longTask = new Runnable() {
+	  	public void run() {
+	  		if (queue.peek() != null) {
+					new Thread(queue.poll()).start();
+				}
+	  	}
+	  };
+	  
+	  Runnable fakeJob = new Runnable() {
+	  	public void run() {
+	  		for (int i = 0; i < 20; i++) {
+	  			doSomeLongWork(500);
+				}
+	  		
+	  		Runnable closeProgressBar = new Runnable() {
+	  			public void run() {
+	  				setProgressBarVisibility(false);
+	  			}
+	  		};
+	  		handler.post(closeProgressBar);
+	  	}
+	  };
+	  
+	  Runnable killJob = new Runnable() {
+	  	public void run() {
+	  		Thread.interrupted();
+	  	}
+	  };
+	  
+	  queue.add(fakeJob);
+	  queue.add(killJob);
+	  
+	  new Thread(longTask).start();
+	    
 	}
 	
 	@Override
@@ -101,12 +142,14 @@ public class LunchList extends TabActivity {
 	}
 	
 	private void doSomeLongWork(final int incr) {
-		runOnUiThread(new Runnable() {
+		Runnable updateProgress = new Runnable() {
 			public void run() {
 				progress += incr;
 				setProgress(progress);
 			}
-		});
+		};
+		
+		handler.post(updateProgress);
 		
 		SystemClock.sleep(250); //Simulation of long running process
 	}
