@@ -73,7 +73,7 @@ public class LunchList extends TabActivity {
 	  if (savedInstanceState != null
 	  		&& savedInstanceState.containsKey("progress")) {
 	  	progress = savedInstanceState.getInt("progress");
-	  	if (progress > 0) {	startWork();	}
+	  	if (progress > 0)	startWork();
 	  }
 	}
 	
@@ -107,15 +107,15 @@ public class LunchList extends TabActivity {
 	}
 	
 	@Override
-	public void onPause() {
-		super.onPause();
+	public void onStop() {
+		super.onStop();
 		
 		isActive.set(false);
 	}
 	
 	@Override
-	public void onResume() {
-		super.onResume();
+	public void onStart() {
+		super.onStart();
 		
 		isActive.set(true);
 		
