@@ -2,6 +2,7 @@ package csci498.trevorwhitney.lunchlist;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 import android.app.TabActivity;
 import android.os.Bundle;
@@ -34,6 +35,7 @@ public class LunchList extends TabActivity {
 	EditText notes = null;
 	RadioGroup types = null;
 	int progress = 0;
+	AtomicBoolean isActive = new AtomicBoolean(true);
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -67,6 +69,12 @@ public class LunchList extends TabActivity {
 	  getTabHost().addTab(spec);
 	  
 	  getTabHost().setCurrentTab(0);
+	  
+	  if (savedInstanceState != null
+	  		&& savedInstanceState.containsKey("progress")) {
+	  	progress = savedInstanceState.getInt("progress");
+	  	if (progress > 0) {	startWork();	}
+	  }
 	}
 	
 	@Override
@@ -90,14 +98,42 @@ public class LunchList extends TabActivity {
 			return true;
 		}
 		else if (item.getItemId() == R.id.run) {
-			setProgressBarVisibility(true);
-			progress=0;
-			new Thread(longTask).start();
+			startWork();
 			
 			return true;
 		}
 		
 		return super.onOptionsItemSelected(item);
+	}
+	
+	@Override
+	public void onPause() {
+		super.onPause();
+		
+		isActive.set(false);
+	}
+	
+	@Override
+	public void onResume() {
+		super.onResume();
+		
+		isActive.set(true);
+		
+		if (progress > 0) {
+			startWork();
+		}
+	}
+	
+	@Override
+	public void onSaveInstanceState(Bundle savedInstanceState) {
+		super.onSaveInstanceState(savedInstanceState);
+		
+		savedInstanceState.putInt("progress", progress);
+	}
+	
+	private void startWork() {
+		setProgressBarVisibility(true);
+		new Thread(longTask).start();
 	}
 	
 	private void doSomeLongWork(final int incr) {
@@ -113,15 +149,18 @@ public class LunchList extends TabActivity {
 	
 	private Runnable longTask = new Runnable() {
 		public void run() {
-			for (int i = progress; i < 10000; i+=200) {
+			for (int i = progress; i < 10000 && isActive.get(); i+=200) {
 				doSomeLongWork(200);
 			}
 			
-			runOnUiThread(new Runnable() {
-				public void run() {
-					setProgressBarVisibility(false);
-				}
-			});
+			if (isActive.get()) {
+				runOnUiThread(new Runnable() {
+					public void run() {
+						setProgressBarVisibility(false);
+						progress = 0;
+					}
+				});
+			}
 		}
 	};
 
