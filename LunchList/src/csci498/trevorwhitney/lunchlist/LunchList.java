@@ -51,13 +51,13 @@ public class LunchList extends TabActivity {
 	  Button save = (Button)findViewById(R.id.save_btn);
 	  save.setOnClickListener(onSave);
 	  
-	  ListView list = (ListView)findViewById(R.id.restaurant_list);
+	  ListView list = (ListView)findViewById(R.id.restaurants_list);
 	  adapter = new RestaurantAdapter();
 	  list.setAdapter(adapter);
 	  list.setOnItemClickListener(onListClick);
 	  
 	  TabHost.TabSpec spec = getTabHost().newTabSpec("tag1");
-	  spec.setContent(R.id.restaurant_list);
+	  spec.setContent(R.id.restaurants_list);
 	  spec.setIndicator("List", getResources().getDrawable(
 	  		R.drawable.list));
 	  getTabHost().addTab(spec);
