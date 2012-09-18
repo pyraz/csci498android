@@ -34,13 +34,10 @@ public class LunchList extends TabActivity {
 	EditText address = null;
 	EditText notes = null;
 	RadioGroup types = null;
-	int progress = 0;
-	AtomicBoolean isActive = new AtomicBoolean(true);
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 	  super.onCreate(savedInstanceState);
-	  requestWindowFeature(Window.FEATURE_PROGRESS);
 	  setContentView(R.layout.activity_lunch_list);
 	  
 	  name = (EditText)findViewById(R.id.name);
@@ -69,100 +66,13 @@ public class LunchList extends TabActivity {
 	  getTabHost().addTab(spec);
 	  
 	  getTabHost().setCurrentTab(0);
-	  
-	  if (savedInstanceState != null
-	  		&& savedInstanceState.containsKey("progress")) {
-	  	progress = savedInstanceState.getInt("progress");
-	  	if (progress > 0) {	startWork();	}
-	  }
 	}
 	
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		new MenuInflater(this).inflate(R.menu.option, menu);
-		
-		return super.onCreateOptionsMenu(menu);
-	}
-	
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		if (item.getItemId() == R.id.toast) {
-			String message = "No restuarant selected";
-			
-			if (current != null) {
-				message = current.getNotes();
-			}
-			
-			Toast.makeText(this, message, Toast.LENGTH_LONG).show();
-			
-			return true;
-		}
-		else if (item.getItemId() == R.id.run) {
-			startWork();
-			
-			return true;
-		}
-		
-		return super.onOptionsItemSelected(item);
-	}
-	
-	@Override
-	public void onPause() {
-		super.onPause();
-		
-		isActive.set(false);
-	}
-	
-	@Override
-	public void onResume() {
-		super.onResume();
-		
-		isActive.set(true);
-		
-		if (progress > 0) {
-			startWork();
-		}
-	}
 	
 	@Override
 	public void onSaveInstanceState(Bundle savedInstanceState) {
 		super.onSaveInstanceState(savedInstanceState);
-		
-		savedInstanceState.putInt("progress", progress);
 	}
-	
-	private void startWork() {
-		setProgressBarVisibility(true);
-		new Thread(longTask).start();
-	}
-	
-	private void doSomeLongWork(final int incr) {
-		runOnUiThread(new Runnable() {
-			public void run() {
-				progress += incr;
-				setProgress(progress);
-			}
-		});
-		
-		SystemClock.sleep(250); //Simulation of long running process
-	}
-	
-	private Runnable longTask = new Runnable() {
-		public void run() {
-			for (int i = progress; i < 10000 && isActive.get(); i+=200) {
-				doSomeLongWork(200);
-			}
-			
-			if (isActive.get()) {
-				runOnUiThread(new Runnable() {
-					public void run() {
-						setProgressBarVisibility(false);
-						progress = 0;
-					}
-				});
-			}
-		}
-	};
 
 	private View.OnClickListener onSave = new View.OnClickListener() {	
 		public void onClick(View v) {
