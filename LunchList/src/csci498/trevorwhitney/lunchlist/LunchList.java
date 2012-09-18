@@ -34,11 +34,13 @@ public class LunchList extends TabActivity {
 	EditText address = null;
 	EditText notes = null;
 	RadioGroup types = null;
+	RestaurantHelper helper = null;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 	  super.onCreate(savedInstanceState);
 	  setContentView(R.layout.activity_lunch_list);
+	  helper = new RestaurantHelper(this);
 	  
 	  name = (EditText)findViewById(R.id.name);
 	  address = (EditText)findViewById(R.id.address);
@@ -68,6 +70,13 @@ public class LunchList extends TabActivity {
 	  getTabHost().setCurrentTab(0);
 	}
 	
+	@Override
+	public void onDestroy() {
+		super.onDestroy();
+		
+		helper.close();
+	}
+	
 	
 	@Override
 	public void onSaveInstanceState(Bundle savedInstanceState) {
@@ -76,26 +85,25 @@ public class LunchList extends TabActivity {
 
 	private View.OnClickListener onSave = new View.OnClickListener() {	
 		public void onClick(View v) {
-    	current = new Restaurant();
-			current.setName(name.getText().toString());
-			current.setAddress(address.getText().toString());
-			current.setNotes(notes.getText().toString());
+    	String type = null;
 
 			switch (types.getCheckedRadioButtonId()) {
 			case R.id.type_in:
-				current.setType("dine_in");
+				type = "dine_in";
 				break;
 			
 			case R.id.type_out:
-				current.setType("take_out");
+				type = "take_out";
 				break;
 				
 			case R.id.type_del:
-				current.setType("delivery");
+				type = "delivery";
 				break;
 			}
 			
-			adapter.add(current);
+			helper.insert(name.getText().toString(), 
+					address.getText().toString(), type,
+					notes.getText().toString());
 			
 			//clear form for next entry
 			name.setText("");

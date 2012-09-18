@@ -1,5 +1,6 @@
 package csci498.trevorwhitney.lunchlist;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.SQLException;
@@ -26,5 +27,17 @@ class RestaurantHelper extends SQLiteOpenHelper {
 	public void onUpgrade(SQLiteDatabase db, int oldVersion,
 			int newVersion) {
 		/* won't be needed until more than one schema versions exist */
+	}
+	
+	public void insert(String name, String address, String type,
+			String notes) {
+		ContentValues values = new ContentValues();
+		
+		values.put("name", name);
+		values.put("address", address);
+		values.put("type", type);
+		values.put("notes", notes);
+		
+		getWritableDatabase().insert("restaurants", "name", values);
 	}
 }
