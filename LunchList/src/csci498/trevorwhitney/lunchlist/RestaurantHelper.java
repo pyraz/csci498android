@@ -1,6 +1,7 @@
 package csci498.trevorwhitney.lunchlist;
 
 import android.content.Context;
+import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.database.sqlite.SQLiteDatabase;
@@ -16,10 +17,14 @@ class RestaurantHelper extends SQLiteOpenHelper {
 	
 	@Override
 	public void onCreate(SQLiteDatabase db) {
+		db.execSQL("CREATE TABLE restaurants" +
+				"(_id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT," +
+				"address TEXT, type TEXT, notes TEXT);");
 	}
 	
 	@Override
 	public void onUpgrade(SQLiteDatabase db, int oldVersion,
 			int newVersion) {
+		/* won't be needed until more than one schema versions exist */
 	}
 }
