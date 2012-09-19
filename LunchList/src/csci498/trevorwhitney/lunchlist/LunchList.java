@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 import android.app.TabActivity;
+import android.content.Context;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.view.LayoutInflater;
@@ -17,6 +19,7 @@ import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CursorAdapter;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -27,7 +30,7 @@ import android.widget.Toast;
 
 public class LunchList extends TabActivity {
 	
-	List<Restaurant> restaurants = new ArrayList<Restaurant>();
+	Cursor restaurants = null;
 	RestaurantAdapter adapter = null;
 	Restaurant current = null;
 	EditText name = null;
@@ -51,7 +54,9 @@ public class LunchList extends TabActivity {
 	  save.setOnClickListener(onSave);
 	  
 	  ListView list = (ListView)findViewById(R.id.restaurants_list);
-	  adapter = new RestaurantAdapter();
+	  restaurants = helper.getAll();
+	  startManagingCursor(restaurants);
+	  adapter = new RestaurantAdapter(restaurants);
 	  list.setAdapter(adapter);
 	  list.setOnItemClickListener(onListClick);
 	  
@@ -135,61 +140,30 @@ public class LunchList extends TabActivity {
 				}
 			};
 	
-	class RestaurantAdapter extends ArrayAdapter<Restaurant> {
+	class RestaurantAdapter extends CursorAdapter {
 		
-		RestaurantAdapter() {
-			super(LunchList.this,
-					android.R.layout.simple_list_item_1,
-					restaurants);
+		RestaurantAdapter(Cursor c) {
+			super(LunchList.this, c);
 		}
 		
-		public View getView(int position, View convertView,
-				ViewGroup parent) {
-			View row = convertView;
-			RestaurantHolder holder = null;
+		@Override
+		public void bindView(View row, Context ctxt, Cursor c) {
+			RestaurantHolder holder = (RestaurantHolder)row.getTag();
+			holder.populateList(c, helper);
+		}
+		
+		@Override
+		public View newView(Context ctxt, Cursor c, ViewGroup parent) {
+			LayoutInflater inflater = getLayoutInflater();
+			View row = inflater.inflate(R.layout.restuarant_row,
+					parent, false);
+			RestaurantHolder holder = new RestaurantHolder(row);
 			
-			if (row == null) {
-				LayoutInflater inflater = getLayoutInflater();
-				row = inflater.inflate(R.layout.restuarant_row, null);
-				holder = new RestaurantHolder(row);
-				row.setTag(holder);
-			}
-			else {
-				holder = (RestaurantHolder)row.getTag();
-			}
-			
-			holder.populateList(restaurants.get(position));
+			row.setTag(holder);
 			
 			return row;
 		}
 		
-	}
-	
-	static class RestaurantHolder {
-		private TextView name = null;
-		private TextView address = null;
-		private ImageView icon = null;
-		
-		RestaurantHolder(View row) {
-			name = (TextView)row.findViewById(R.id.name);
-			address = (TextView)row.findViewById(R.id.address);
-			icon = (ImageView)row.findViewById(R.id.icon);
-		}
-		
-		void populateList(Restaurant restaurant) {
-			name.setText(restaurant.getName());
-			address.setText(restaurant.getAddress());
-			
-			if (restaurant.getType().equals("dine_in")) {
-				icon.setImageResource(R.drawable.ball_red);
-			}
-			else if (restaurant.getType().equals("take_out")) {
-				icon.setImageResource(R.drawable.ball_yellow);
-			}
-			else {
-				icon.setImageResource(R.drawable.ball_green);
-			}
-		}
 	}
 
 }
