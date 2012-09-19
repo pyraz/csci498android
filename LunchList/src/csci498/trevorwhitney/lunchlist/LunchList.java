@@ -109,6 +109,7 @@ public class LunchList extends TabActivity {
 			helper.insert(name.getText().toString(), 
 					address.getText().toString(), type,
 					notes.getText().toString());
+			restaurants.requery();
 			
 			//clear form for next entry
 			name.setText("");
