@@ -121,15 +121,15 @@ public class LunchList extends TabActivity {
 			AdapterView.OnItemClickListener() {
 				public void onItemClick(AdapterView<?> parent,
 						View view, int position, long id) {
-					current = restaurants.get(position);
-					name.setText(current.getName());
-					address.setText(current.getAddress());
-					notes.setText(current.getNotes());
+					restaurants.moveToPosition(position);
+					name.setText(helper.getName(restaurants));
+					address.setText(helper.getAddress(restaurants));
+					notes.setText(helper.getNotes(restaurants));
 					
-					if (current.getType().equals("dine_in")) {
+					if (helper.getType(restaurants).equals("dine_in")) {
 						types.check(R.id.type_in);
 					}
-					else if (current.getType().equals("take_out")) {
+					else if (helper.getType(restaurants).equals("take_out")) {
 						types.check(R.id.type_out);
 					}
 					else {
