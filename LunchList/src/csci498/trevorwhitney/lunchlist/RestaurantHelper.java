@@ -19,7 +19,7 @@ class RestaurantHelper extends SQLiteOpenHelper {
 	@Override
 	public void onCreate(SQLiteDatabase db) {
 		db.execSQL("CREATE TABLE restaurants" +
-				"(_id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT," +
+				"(_id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, " +
 				"address TEXT, type TEXT, notes TEXT);");
 	}
 	
@@ -43,7 +43,7 @@ class RestaurantHelper extends SQLiteOpenHelper {
 	
 	public Cursor getAll() {
 		return getReadableDatabase().rawQuery(
-				"SELECT _id, name, address, type, notes FROM restaurants" +
+				"SELECT _id, name, address, type, notes FROM restaurants " +
 				"ORDER BY name", null);
 	}
 	
