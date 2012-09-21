@@ -6,6 +6,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 
 import android.app.TabActivity;
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.os.SystemClock;
@@ -122,22 +123,9 @@ public class LunchList extends TabActivity {
 			AdapterView.OnItemClickListener() {
 				public void onItemClick(AdapterView<?> parent,
 						View view, int position, long id) {
-					restaurants.moveToPosition(position);
-					name.setText(helper.getName(restaurants));
-					address.setText(helper.getAddress(restaurants));
-					notes.setText(helper.getNotes(restaurants));
+					Intent i = new Intent(LunchList.this, DetailForm.class);
 					
-					if (helper.getType(restaurants).equals("dine_in")) {
-						types.check(R.id.type_in);
-					}
-					else if (helper.getType(restaurants).equals("take_out")) {
-						types.check(R.id.type_out);
-					}
-					else {
-						types.check(R.id.type_del);
-					}
-					
-					getTabHost().setCurrentTab(1);
+					startActivity(i);
 				}
 			};
 	
