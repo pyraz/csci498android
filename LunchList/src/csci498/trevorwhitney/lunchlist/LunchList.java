@@ -34,10 +34,6 @@ public class LunchList extends TabActivity {
 	Cursor restaurants = null;
 	RestaurantAdapter adapter = null;
 	Restaurant current = null;
-	EditText name = null;
-	EditText address = null;
-	EditText notes = null;
-	RadioGroup types = null;
 	RestaurantHelper helper = null;
 
 	@Override
@@ -45,14 +41,6 @@ public class LunchList extends TabActivity {
 	  super.onCreate(savedInstanceState);
 	  setContentView(R.layout.activity_lunch_list);
 	  helper = new RestaurantHelper(this);
-	  
-	  name = (EditText)findViewById(R.id.name);
-	  address = (EditText)findViewById(R.id.address);
-	  notes = (EditText)findViewById(R.id.notes);
-	  types = (RadioGroup)findViewById(R.id.types);
-	  
-	  Button save = (Button)findViewById(R.id.save_btn);
-	  save.setOnClickListener(onSave);
 	  
 	  ListView list = (ListView)findViewById(R.id.restaurants_list);
 	  restaurants = helper.getAll();
@@ -88,36 +76,7 @@ public class LunchList extends TabActivity {
 	public void onSaveInstanceState(Bundle savedInstanceState) {
 		super.onSaveInstanceState(savedInstanceState);
 	}
-
-	private View.OnClickListener onSave = new View.OnClickListener() {	
-		public void onClick(View v) {
-    	String type = null;
-
-			switch (types.getCheckedRadioButtonId()) {
-			case R.id.type_in:
-				type = "dine_in";
-				break;
-			
-			case R.id.type_out:
-				type = "take_out";
-				break;
-				
-			case R.id.type_del:
-				type = "delivery";
-				break;
-			}
-			
-			helper.insert(name.getText().toString(), 
-					address.getText().toString(), type,
-					notes.getText().toString());
-			restaurants.requery();
-			
-			//clear form for next entry
-			name.setText("");
-			address.setText("");
-			types.check(R.id.type_out);
-		}
-	};
+	
 	
 	private AdapterView.OnItemClickListener onListClick = new
 			AdapterView.OnItemClickListener() {
