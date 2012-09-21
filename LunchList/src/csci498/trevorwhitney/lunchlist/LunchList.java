@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
 
+import android.app.ListActivity;
 import android.app.TabActivity;
 import android.content.Context;
 import android.content.Intent;
@@ -29,7 +30,7 @@ import android.widget.TabHost;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class LunchList extends TabActivity {
+public class LunchList extends ListActivity {
 	
 	Cursor restaurants = null;
 	RestaurantAdapter adapter = null;
@@ -42,26 +43,10 @@ public class LunchList extends TabActivity {
 	  setContentView(R.layout.activity_lunch_list);
 	  helper = new RestaurantHelper(this);
 	  
-	  ListView list = (ListView)findViewById(R.id.restaurants_list);
 	  restaurants = helper.getAll();
 	  startManagingCursor(restaurants);
 	  adapter = new RestaurantAdapter(restaurants);
-	  list.setAdapter(adapter);
-	  list.setOnItemClickListener(onListClick);
-	  
-	  TabHost.TabSpec spec = getTabHost().newTabSpec("tag1");
-	  spec.setContent(R.id.restaurants_list);
-	  spec.setIndicator("List", getResources().getDrawable(
-	  		R.drawable.list));
-	  getTabHost().addTab(spec);
-	  
-	  spec = getTabHost().newTabSpec("tag2");
-	  spec.setContent(R.id.details_form);
-	  spec.setIndicator("Details", getResources().getDrawable(
-	  		R.drawable.restaurant));
-	  getTabHost().addTab(spec);
-	  
-	  getTabHost().setCurrentTab(0);
+	  setListAdapter(adapter);
 	}
 	
 	@Override
