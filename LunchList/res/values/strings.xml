@@ -17,5 +17,8 @@
     <string name="notes">Notes: </string>
     <string name="toast">Raise Toast</string>
     <string name="run">Run Background Ps</string>
+    <string name="details_form_tip">
+    	Click the MENU button to add a restuarant!"
+    </string>
 
 </resources>
