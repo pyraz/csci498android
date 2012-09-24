@@ -80,10 +80,23 @@ public class DetailForm extends Activity {
 				break;
 			}
 			
+			if (restaurantId == null) {
+				helper.insert(name.getText().toString(), 
+						address.getText().toString(), type, 
+						notes.getText().toString());
+			}
+			else {
+				helper.update(restaurantId, name.getText().toString(), 
+						address.getText().toString(), type, 
+						notes.getText().toString());
+			}
+			
 			//clear form for next entry
-			name.setText("");
+			/* name.setText("");
 			address.setText("");
-			types.check(R.id.type_out);
+			types.check(R.id.type_out); */
+			
+			finish();
 		}
 	};
 }
