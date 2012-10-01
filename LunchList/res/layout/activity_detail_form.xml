@@ -1,61 +1,58 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-	android:layout_width="match_parent"
-	android:layout_height="wrap_content" >
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content" >
 
 	<TableLayout android:id="@+id/details_form"
-		android:layout_width="match_parent"
-		android:layout_height="wrap_content"
-		android:shrinkColumns="1"
-		android:stretchColumns="1" >
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:shrinkColumns="1"
+			android:stretchColumns="1" >
 		
 		<TableRow>
 			<TextView android:text="@string/name_label" />
 			<EditText
-				android:id="@+id/name"
-				android:hint="@string/name_hint" >
+					android:id="@+id/name"
+					android:hint="@string/name_hint" >
 			</EditText>
 		</TableRow>
 		
 		<TableRow>
 			<TextView android:text="@string/address_label" />
 			<EditText
-				android:id="@+id/address"
-				android:hint="@string/address_hint" />
+					android:id="@+id/address"
+					android:hint="@string/address_hint" />
 		</TableRow>
 
 		<TableRow>
 			<TextView android:text="@string/type" />
 			<RadioGroup android:id="@+id/types" >
 				<RadioButton
-					android:id="@+id/type_out"
-					android:checked="true"
-					android:text="@string/type_out" />
+						android:id="@+id/type_out"
+						android:checked="true"
+						android:text="@string/type_out" />
 				<RadioButton
-					android:id="@+id/type_in"
-					android:text="@string/type_in" />
+						android:id="@+id/type_in"
+						android:text="@string/type_in" />
 				<RadioButton
-					android:id="@+id/type_del"
-					android:text="@string/type_del" />
+						android:id="@+id/type_del"
+						android:text="@string/type_del" />
 			</RadioGroup>
 		</TableRow>
-		
-		<TableRow>
-				<TextView android:text="@string/notes" />
-				<EditText android:id="@+id/notes"
-					android:singleLine="false"
-					android:gravity="top"
-					android:lines="2"
-					android:scrollHorizontally="false"
-					android:maxLines="2"
-					android:maxWidth="200sp" />
-		</TableRow>
-
+		<EditText android:id="@+id/notes"
+				android:hint="@string/notes_hint"
+				android:singleLine="false"
+				android:gravity="top"
+				android:lines="2"
+				android:scrollHorizontally="false"
+				android:maxLines="2" />
+		<EditText android:id="@+id/feed"
+				android:hint="@string/feed_hint" />
 		<Button
-			android:id="@+id/save_btn"
-			android:layout_width="match_parent"
-			android:layout_height="wrap_content"
-			android:text="@string/save_btn" />
+				android:id="@+id/save_btn"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:text="@string/save_btn" />
 
 	</TableLayout>
 </ScrollView>

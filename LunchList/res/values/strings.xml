@@ -14,7 +14,8 @@
     <string name="type_in">Dine-In</string>
     <string name="type_del">Delivery</string>
     <string name="restaurant_icon_desc">Type of dining</string>
-    <string name="notes">Notes: </string>
+    <string name="notes_hint">Notes</string>
+    <string name="feed_hint">RSS Feed</string>
     <string name="add">Add Restaurant</string>
     <string name="details_form_tip">
     	Click the MENU button to add a restuarant!"

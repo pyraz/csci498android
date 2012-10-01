@@ -13,6 +13,7 @@ public class DetailForm extends Activity {
 	EditText address = null;
 	EditText notes = null;
 	RadioGroup types = null;
+	EditText feed = null;
 	RestaurantHelper helper = null;
 	String restaurantId = null;
 	
@@ -26,6 +27,7 @@ public class DetailForm extends Activity {
 	  address = (EditText)findViewById(R.id.address);
 	  notes = (EditText)findViewById(R.id.notes);
 	  types = (RadioGroup)findViewById(R.id.types);
+	  feed = (EditText)findViewById(R.id.feed);
 	  
 	  Button save = (Button)findViewById(R.id.save_btn);
 	  save.setOnClickListener(onSave);
@@ -70,6 +72,7 @@ public class DetailForm extends Activity {
 		name.setText(helper.getName(c));
 		address.setText(helper.getAddress(c));
 		notes.setText(helper.getNotes(c));
+		feed.setText(helper.getFeed(c));
 		
 		if (helper.getType(c).equals("dine_in")) {
 			types.check(R.id.type_in);
@@ -103,18 +106,13 @@ public class DetailForm extends Activity {
 			if (restaurantId == null) {
 				helper.insert(name.getText().toString(), 
 						address.getText().toString(), type, 
-						notes.getText().toString());
+						notes.getText().toString(), feed.getText().toString());
 			}
 			else {
 				helper.update(restaurantId, name.getText().toString(), 
 						address.getText().toString(), type, 
-						notes.getText().toString());
+						notes.getText().toString(), feed.getText().toString());
 			}
-			
-			//clear form for next entry
-			/* name.setText("");
-			address.setText("");
-			types.check(R.id.type_out); */
 			
 			finish();
 		}

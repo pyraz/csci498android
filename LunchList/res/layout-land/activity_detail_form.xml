@@ -33,11 +33,6 @@
 					android:layout_marginLeft="4dp"
 					android:layout_weight="1"
 					android:orientation="vertical" >
-				<TextView
-						android:layout_width="match_parent"
-						android:layout_height="0dip"
-						android:layout_weight="0.02"
-						android:text="@string/notes" />
 				<EditText
 						android:id="@+id/notes"
 						android:layout_width="match_parent"
@@ -46,7 +41,12 @@
 						android:inputType="textMultiLine"
 						android:lines="2"
 						android:maxLines="2"
-						android:scrollHorizontally="false" />
+						android:scrollHorizontally="false"
+						android:hint="@string/notes_hint"/>
+				<EditText android_id="@+id/feed"
+						android:layout_width="match_parent"
+						android:layout_height="wrap_content"
+						android:hint="@string/feed_hint" />
 				<Button
 						android:id="@+id/save_btn"
 						android:layout_width="match_parent"
