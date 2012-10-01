@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content" >
+	<TableLayout
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:stretchColumns="3"
+			android:shrinkColumns="3" >
+		<TableRow>
+			<TextView android:text="@string/name_label" />
+			<EditText android:id="@+id/name"
+					android:layout_span="3" />
+		</TableRow>
+		<TableRow>
+			<TextView android:text="@string/address_label" />
+			<EditText android:id="@+id/address"
+					android:layout_span="3" />
+		</TableRow>
+		<TableRow>
+			<TextView android:text="@string/type" />
+			<RadioGroup android:id="@+id/types">
+				<RadioButton android:id="@+id/type_out"
+						android:text="@string/type_out"
+						android:checked="true" />
+				<RadioButton android:id="@+id/type_in"
+						android:text="@string/type_in" />
+				<RadioButton android:id="@+id/type_del"
+						android:text="@string/type_del" />
+			</RadioGroup>
+
+			<LinearLayout
+					android:layout_marginLeft="4dp"
+					android:layout_weight="1"
+					android:orientation="vertical" >
+				<TextView
+						android:layout_width="match_parent"
+						android:layout_height="match_parent"
+						android:layout_weight="0.02"
+						android:text="@string/notes" />
+				<EditText
+						android:id="@+id/notes"
+						android:layout_width="match_parent"
+						android:layout_height="wrap_content"
+						android:gravity="top"
+						android:inputType="textMultiLine"
+						android:lines="2"
+						android:maxLines="2"
+						android:scrollHorizontally="false" />
+				<Button
+						android:id="@+id/save_btn"
+						android:layout_width="match_parent"
+						android:layout_height="wrap_content"
+						android:text="@string/save_btn" />
+			</LinearLayout>
+		</TableRow>
+	</TableLayout>
+</ScrollView>
