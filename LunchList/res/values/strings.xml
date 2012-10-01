@@ -19,5 +19,10 @@
     <string name="details_form_tip">
     	Click the MENU button to add a restuarant!"
     </string>
+    <string name="sort_order">Sort Order</string>
+    <string name="sort_order_summary">
+    	Choose the oreder that the restaurant list should use
+    </string>
+    <string name="sort_order_dialog">Choose a sort order</string>
 
 </resources>
