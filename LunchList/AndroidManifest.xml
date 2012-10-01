@@ -15,18 +15,21 @@
         android:icon="@drawable/hamburger"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
-        <activity
-            android:name=".LunchList"
-            android:label="@string/title_activity_lunch_list" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+      <activity
+          android:name=".LunchList"
+          android:label="@string/title_activity_lunch_list" >
+          <intent-filter>
+            <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-        <activity android:name=".DetailForm">
-        		
-        </activity>
+            <category android:name="android.intent.category.LAUNCHER" />
+          </intent-filter>
+      </activity>
+      <activity android:name=".DetailForm">
+      		
+      </activity>
+      <activity android:name=".EditPreferences">
+      	
+      </activity>
     </application>
 
 </manifest>

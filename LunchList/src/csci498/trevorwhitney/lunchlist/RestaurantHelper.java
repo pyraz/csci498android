@@ -55,10 +55,10 @@ class RestaurantHelper extends SQLiteOpenHelper {
 	}
 	
 	
-	public Cursor getAll() {
+	public Cursor getAll(String orderBy) {
 		return getReadableDatabase().rawQuery(
 				"SELECT _id, name, address, type, notes FROM restaurants " +
-				"ORDER BY name", null);
+				"ORDER BY " + orderBy, null);
 	}
 	
 	public Cursor getById(String id) {
