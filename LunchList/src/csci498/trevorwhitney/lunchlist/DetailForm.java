@@ -43,6 +43,26 @@ public class DetailForm extends Activity {
 		helper.close();
 	}
 	
+	@Override
+	public void onSaveInstanceState(Bundle state) {
+		super.onSaveInstanceState(state);
+		
+		state.putString("name", name.getText().toString());
+		state.putString("address", address.getText().toString());
+		state.putString("notes", notes.getText().toString());
+		state.putInt("type", types.getCheckedRadioButtonId());
+	}
+	
+	@Override
+	public void onRestoreInstanceState(Bundle savedInstanceState) {
+		super.onRestoreInstanceState(savedInstanceState);
+		
+		name.setText(savedInstanceState.getString("name"));
+		address.setText(savedInstanceState.getString("address"));
+		notes.setText(savedInstanceState.getString("notes"));
+		types.check(savedInstanceState.getInt("type"));
+	}
+	
 	public void loadRestaurant() {
 		Cursor c = helper.getById(restaurantId);
 		
