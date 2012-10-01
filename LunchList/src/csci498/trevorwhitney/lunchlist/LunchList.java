@@ -33,11 +33,9 @@ public class LunchList extends ListActivity {
 	  setContentView(R.layout.activity_lunch_list);
 	  helper = new RestaurantHelper(this);
 	  prefs = PreferenceManager.getDefaultSharedPreferences(this);
-	  
 	  restaurants = helper.getAll(prefs.getString("sort_order", "name"));
-	  startManagingCursor(restaurants);
-	  adapter = new RestaurantAdapter(restaurants);
-	  setListAdapter(adapter);
+	  initList();
+	  prefs.registerOnSharedPreferenceChangeListener(prefListener);
 	}
 	
 	@Override
@@ -83,6 +81,28 @@ public class LunchList extends ListActivity {
 		
 		return super.onOptionsItemSelected(item);
 	}
+	
+	private void initList() {
+		if (restaurants != null) {
+			stopManagingCursor(restaurants);
+			restaurants.close();
+		}
+		
+		restaurants = helper.getAll(prefs.getString("sort_order", "name"));
+		startManagingCursor(restaurants);
+		adapter = new RestaurantAdapter(restaurants);
+		setListAdapter(adapter);
+	}
+	
+	private SharedPreferences.OnSharedPreferenceChangeListener prefListener = 
+			new SharedPreferences.OnSharedPreferenceChangeListener() {
+		public void onSharedPreferenceChanged(SharedPreferences sharedPrefs,
+				String key) {
+			if (key.equals("sort_order")) {
+				initList();
+			}
+		}
+	};
 	
 	class RestaurantAdapter extends CursorAdapter {
 		
