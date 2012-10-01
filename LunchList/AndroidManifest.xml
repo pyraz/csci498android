@@ -33,6 +33,9 @@
       <activity android:name=".EditPreferences">
       	
       </activity>
+      <activity android:name=".FeedActivity">
+      		
+      </activity>
     </application>
 
 </manifest>
