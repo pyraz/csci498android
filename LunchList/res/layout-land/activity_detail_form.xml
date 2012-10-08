@@ -43,7 +43,7 @@
 						android:maxLines="2"
 						android:scrollHorizontally="false"
 						android:hint="@string/notes_hint"/>
-				<EditText android_id="@+id/feed"
+				<EditText android:id="@+id/feed"
 						android:layout_width="match_parent"
 						android:layout_height="wrap_content"
 						android:hint="@string/feed_hint" />

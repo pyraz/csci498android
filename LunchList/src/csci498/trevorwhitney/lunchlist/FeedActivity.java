@@ -76,8 +76,7 @@ public class FeedActivity extends ListActivity {
 			.show();
 	}
 	
-	private static class FeedHandler extends 
-			Handler {
+	private static class FeedHandler extends Handler {
 		FeedActivity activity = null;
 		
 		FeedHandler(FeedActivity activity) {
@@ -135,7 +134,6 @@ public class FeedActivity extends ListActivity {
 				row = inflater.inflate(android.R.layout.simple_list_item_1, 
 						parent, false);
 			}
-			//Need an else??
 			
 			RSSItem item = (RSSItem)getItem(position);
 			((TextView)row).setText(item.getTitle());
@@ -145,6 +143,6 @@ public class FeedActivity extends ListActivity {
 	
 	private static class InstanceState {
 		RSSFeed feed = null;
-		FeedHandler handler =null;
+		FeedHandler handler = null;
 	}
 }
