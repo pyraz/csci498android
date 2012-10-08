@@ -12,7 +12,10 @@ import android.util.Log;
 
 public class FeedService extends IntentService {
 	
-	public static final String EXTRA_URL = "apt.tutorial.EXTRA_URL";
+	public static final String EXTRA_URL = 
+			"csci498.trevorwhitney.lunchlist.EXTRA_URL";
+	public static final String EXTRA_MESSENGER = 
+			"csci498.trevorwhitney.lunchlist.EXTRA_MESSENGER";
 	
 	public FeedService() {
 		super("FeedService");
