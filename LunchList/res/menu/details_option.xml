@@ -4,6 +4,6 @@
 			android:title="@string/feed_title"
 			android:icon="@drawable/ic_menu_friendslist" />
 	<item android:id="@+id/location"
-		android:title="location_option"
+		android:title="@string/location_option"
 		android:icon="@drawable/ic_menu_compass" />
 </menu>
