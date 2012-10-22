@@ -1,38 +1,39 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="csci498.trevorwhitney.lunchlist"
-    android:versionCode="1"
-    android:versionName="1.0" >
+  package="csci498.trevorwhitney.lunchlist"
+  android:versionCode="1"
+  android:versionName="1.0" >
 
     <uses-sdk
-        android:minSdkVersion="8"
-        android:targetSdkVersion="15" />
+      android:minSdkVersion="8"
+      android:targetSdkVersion="15" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission 
-    		android:name="android.permission.ACCESS_NETWORK_STATE" />
+    	android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission
+    	android:name="android.permission.ACCESS_FINE_LOCATION" />
     <supports-screens 
-        android:largeScreens="true" 
-        android:smallScreens="false" 
-        android:normalScreens="true"/>
-
+      android:largeScreens="true" 
+      android:smallScreens="false" 
+      android:normalScreens="true"/>
     <application
-        android:icon="@drawable/hamburger"
-        android:label="@string/app_name"
-        android:theme="@style/AppTheme" >
-      <activity
-          android:name=".LunchList"
-          android:label="@string/title_activity_lunch_list" >
-          <intent-filter>
-            <action android:name="android.intent.action.MAIN" />
-            <category android:name="android.intent.category.LAUNCHER" />
-          </intent-filter>
-      </activity>
-      <activity android:name=".DetailForm">
-      </activity>
-      <activity android:name=".EditPreferences">
-      </activity>
-      <activity android:name=".FeedActivity">
-      </activity>
-      <service android:name=".FeedService">
-      </service>
+      android:icon="@drawable/hamburger"
+      android:label="@string/app_name"
+      android:theme="@style/AppTheme" >
+	    <activity
+        android:name=".LunchList"
+        android:label="@string/title_activity_lunch_list" >
+        <intent-filter>
+          <action android:name="android.intent.action.MAIN" />
+          <category android:name="android.intent.category.LAUNCHER" />
+        </intent-filter>
+	    </activity>
+	    <activity android:name=".DetailForm">
+	    </activity>
+	    <activity android:name=".EditPreferences">
+	    </activity>
+	    <activity android:name=".FeedActivity">
+	    </activity>
+	    <service android:name=".FeedService">
+	    </service>
     </application>
 </manifest>
