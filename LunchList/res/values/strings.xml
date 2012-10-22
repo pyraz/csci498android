@@ -27,5 +27,7 @@
     </string>
     <string name="sort_order_dialog">Choose a sort order</string>
     <string name="prefs_title">Settings</string>
+    <string name="location">Location: </string>
+    <string name="location_label">(not set)</string>
 
 </resources>

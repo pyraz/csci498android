@@ -13,6 +13,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.RadioGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class DetailForm extends Activity {
@@ -23,6 +24,7 @@ public class DetailForm extends Activity {
 	EditText feed = null;
 	RestaurantHelper helper = null;
 	String restaurantId = null;
+	TextView location = null;
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -35,6 +37,7 @@ public class DetailForm extends Activity {
 	  notes = (EditText)findViewById(R.id.notes);
 	  types = (RadioGroup)findViewById(R.id.types);
 	  feed = (EditText)findViewById(R.id.feed);
+	  location = (TextView)findViewById(R.id.location);
 	  
 	  restaurantId = getIntent().getStringExtra(LunchList.ID_EXTRA);
 	  if (restaurantId != null) {
@@ -119,6 +122,8 @@ public class DetailForm extends Activity {
 		address.setText(helper.getAddress(c));
 		notes.setText(helper.getNotes(c));
 		feed.setText(helper.getFeed(c));
+		location.setText(String.valueOf(helper.getLatitude(c)) + ", " +
+				String.valueOf(helper.getLongitude(c)));
 		
 		if (helper.getType(c).equals("dine_in")) {
 			types.check(R.id.type_in);
@@ -129,6 +134,8 @@ public class DetailForm extends Activity {
 		else {
 			types.check(R.id.type_del);
 		}
+		
+		c.close();
 	}
 	
 	private void save() {

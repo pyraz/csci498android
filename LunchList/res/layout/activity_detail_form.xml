@@ -39,6 +39,11 @@
 						android:text="@string/type_del" />
 			</RadioGroup>
 		</TableRow>
+		<TableRow>
+			<TextView android:text="@string/location" />
+			<TextView android:id="@+id/location" 
+				android:text="@string/location_label" />
+		</TableRow>
 		<EditText android:id="@+id/notes"
 				android:hint="@string/notes_hint"
 				android:singleLine="false"
@@ -48,11 +53,6 @@
 				android:maxLines="2" />
 		<EditText android:id="@+id/feed"
 				android:hint="@string/feed_hint" />
-		<Button
-				android:id="@+id/save_btn"
-				android:layout_width="match_parent"
-				android:layout_height="wrap_content"
-				android:text="@string/save_btn" />
 
 	</TableLayout>
 </ScrollView>
