@@ -29,5 +29,6 @@
     <string name="prefs_title">Settings</string>
     <string name="location">Location: </string>
     <string name="location_label">(not set)</string>
+    <string name="location_option">Save Location</string>
 
 </resources>
