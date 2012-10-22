@@ -11,7 +11,6 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioGroup;
 import android.widget.Toast;
@@ -37,9 +36,6 @@ public class DetailForm extends Activity {
 	  types = (RadioGroup)findViewById(R.id.types);
 	  feed = (EditText)findViewById(R.id.feed);
 	  
-	  Button save = (Button)findViewById(R.id.save_btn);
-	  save.setOnClickListener(onSave);
-	  
 	  restaurantId = getIntent().getStringExtra(LunchList.ID_EXTRA);
 	  if (restaurantId != null) {
 	  	loadRestaurant();
@@ -51,6 +47,13 @@ public class DetailForm extends Activity {
 		super.onDestroy();
 		
 		helper.close();
+	}
+	
+	@Override
+	public void onPause() {
+		save();
+		
+		super.onPause();
 	}
 	
 	@Override
@@ -128,22 +131,22 @@ public class DetailForm extends Activity {
 		}
 	}
 	
-	private View.OnClickListener onSave = new View.OnClickListener() {	
-		public void onClick(View v) {
-    	String type = null;
-
+	private void save() {
+		if (name.getText().toString().length() > 0) {
+			String type = null;
+		
 			switch (types.getCheckedRadioButtonId()) {
-			case R.id.type_in:
-				type = "dine_in";
-				break;
-			
-			case R.id.type_out:
-				type = "take_out";
-				break;
+				case R.id.type_in:
+					type = "dine_in";
+					break;
 				
-			case R.id.type_del:
-				type = "delivery";
-				break;
+				case R.id.type_out:
+					type = "take_out";
+					break;
+					
+				case R.id.type_del:
+					type = "delivery";
+					break;
 			}
 			
 			if (restaurantId == null) {
@@ -156,8 +159,6 @@ public class DetailForm extends Activity {
 						address.getText().toString(), type, 
 						notes.getText().toString(), feed.getText().toString());
 			}
-			
-			finish();
 		}
-	};
+	}
 }
