@@ -2,10 +2,12 @@ package csci498.trevorwhitney.lunchlist;
 
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.widget.Toast;
 
 import com.google.android.maps.GeoPoint;
 import com.google.android.maps.ItemizedOverlay;
 import com.google.android.maps.MapActivity;
+import com.google.android.maps.MapController;
 import com.google.android.maps.MapView;
 import com.google.android.maps.OverlayItem;
 
@@ -71,6 +73,13 @@ public class RestaurantMap extends MapActivity {
 		@Override
 		public int size() {
 			return 1;
+		}
+		
+		@Override
+		protected boolean onTap(int i) {
+			Toast.makeText(RestaurantMap.this, item.getSnippet(), 
+					Toast.LENGTH_SHORT).show();
+			return true;
 		}
 	}
 	
