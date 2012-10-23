@@ -30,5 +30,6 @@
     <string name="location">Location: </string>
     <string name="location_label">(not set)</string>
     <string name="location_option">Save Location</string>
+    <string name="map_menu">Show on Map</string>
 
 </resources>
