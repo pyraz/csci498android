@@ -29,6 +29,8 @@ public class DetailForm extends Activity {
 	String restaurantId = null;
 	TextView location = null;
 	LocationManager locationManager = null;
+	double latitude = 0.0d;
+	double longitude = 0.0d;
 	
 	LocationListener onLocationChange = new LocationListener() {
 		public void onLocationChanged(Location fix) {
@@ -154,7 +156,12 @@ public class DetailForm extends Activity {
 		else if (item.getItemId() == R.id.map){
 			Intent i = new Intent(this, RestaurantMap.class);
 			
+			i.putExtra(RestaurantMap.EXTRA_LATITUDE, latitude);
+			i.putExtra(RestaurantMap.EXTRA_LONGITUDE, longitude);
+			i.putExtra(RestaurantMap.EXTRA_NAME, name.getText().toString());
+			
 			startActivity(i);
+			return true;
 		}
 		
 		return super.onOptionsItemSelected(item);
@@ -188,6 +195,9 @@ public class DetailForm extends Activity {
 		else {
 			types.check(R.id.type_del);
 		}
+		
+		latitude = helper.getLatitude(c);
+		longitude = helper.getLongitude(c);
 		
 		c.close();
 	}
