@@ -11,6 +11,8 @@
     	android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission
     	android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission
+    	android:name="android.permission.RECIEVE_BOOT_COMPLETED" />
     <supports-screens 
       android:largeScreens="true" 
       android:smallScreens="false" 
@@ -38,5 +40,10 @@
 	    </activity>
 	    <service android:name=".FeedService">
 	    </service>
+	    <reciever android:name=".OnBootReciever" android:enabled="false">
+	    	<intent-filter>
+	    		<action android:name="android.intent.action.BOOT_COMPLETED" />
+	    	</intent-filter>
+	    </reciever>
     </application>
 </manifest>
