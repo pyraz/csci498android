@@ -6,5 +6,15 @@
 			android:summary="@string/sort_order_summary"
 			android:entries="@array/sort_names"
 			android:entryValues="@array/sort_clauses"
-			android:dialogTitle="@string/sort_order_dialog"/>
+			android:dialogTitle="@string/sort_order_dialog" />
+	<CheckBoxPreference
+			android:key="alarm"
+			android:title="@string/alarm_cb"
+			android:summary="@string/alarm_cb_summary" />
+	<csci498.trevorwhitney.lunchlist.TimePreference
+			android:key="alarm_time"
+			android:title="@string/alarm_time"
+			android:summary="@string/alarm_time_summary"
+			android:defaultValue="12:00"
+			android:dependency="alarm" />
 </PreferenceScreen>

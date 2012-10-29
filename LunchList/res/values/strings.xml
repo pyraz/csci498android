@@ -31,5 +31,13 @@
     <string name="location_label">(not set)</string>
     <string name="location_option">Save Location</string>
     <string name="map_menu">Show on Map</string>
+    <string name="alarm_cb">Sound a Lunch Alarm</string>
+    <string name="alarm_cb_summary">
+    		Check if you want to know when it is time for lunch
+    </string>
+    <string name="alarm_time">Lunch Alarm Time</string>
+    <string name="alarm_time_summary">
+    		Set your desired time for the lunch alarm
+    </string>
 
 </resources>
