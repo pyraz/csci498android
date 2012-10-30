@@ -39,5 +39,6 @@
     <string name="alarm_time_summary">
     		Set your desired time for the lunch alarm
     </string>
+    <string name="alarm_activity">It\'s time for lunch!</string>
 
 </resources>
