@@ -40,5 +40,10 @@
     		Set your desired time for the lunch alarm
     </string>
     <string name="alarm_activity">It\'s time for lunch!</string>
+    <string name="notification_title">Use a notification</string>
+    <string name="notification_summary">
+    		Check if you want a status bar icon at lunchtime,
+    		or uncheck for a full-screen notice
+    </string>
 
 </resources>
