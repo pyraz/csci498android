@@ -45,5 +45,6 @@
     		Check if you want a status bar icon at lunchtime,
     		or uncheck for a full-screen notice
     </string>
+    <string name="empty">No restuarants!</string>
 
 </resources>
