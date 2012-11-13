@@ -24,7 +24,7 @@ public class WidgetService extends IntentService {
 		
 		try {
 			Cursor c = helper.getReadableDatabase().rawQuery(
-					"SELECT COUNT(*) FROM restaurant", null);
+					"SELECT COUNT(*) FROM restaurants", null);
 			c.moveToFirst();
 			
 			int count = c.getInt(0);
