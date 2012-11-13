@@ -42,6 +42,9 @@
 	    <service android:name=".FeedService">
 	    </service>
 	    <service android:name=".WidgetService"></service>
+	    <service android:name=".ListWidgetService"
+	    	android:permission="android.permission.BIND_REMOTEVIEWS">
+	    </service>
 	    <reciever android:name=".OnBootReciever" android:enabled="false">
 	    	<intent-filter>
 	    		<action android:name="android.intent.action.BOOT_COMPLETED" />
