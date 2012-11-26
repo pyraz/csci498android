@@ -46,5 +46,6 @@
     		or uncheck for a full-screen notice
     </string>
     <string name="empty">No restuarants!</string>
+    <string name="help">Help</string>
 
 </resources>
