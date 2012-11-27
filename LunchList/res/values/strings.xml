@@ -50,5 +50,6 @@
     <string name="ringtone_summary">
     		Indictate the rington to play when it is lunchtime
     </string>
+    <string name="phone">Phone: </string>
 
 </resources>

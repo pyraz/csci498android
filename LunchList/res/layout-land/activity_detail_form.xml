@@ -18,6 +18,12 @@
 					android:layout_span="3" />
 		</TableRow>
 		<TableRow>
+			<TextView android:text="@string/phone" />
+			<EditText android:id="@+id/phone"
+				android:inputType="phone"
+				android:layout_span="2" />
+		</TableRow>
+		<TableRow>
 			<TextView android:text="@string/type" />
 			<RadioGroup android:id="@+id/types">
 				<RadioButton android:id="@+id/type_out"

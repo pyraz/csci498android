@@ -25,6 +25,7 @@ import android.widget.Toast;
 public class DetailFragment extends Fragment {
 	EditText name = null;
 	EditText address = null;
+	EditText phone = null;
 	EditText notes = null;
 	RadioGroup types = null;
 	EditText feed = null;
@@ -89,6 +90,7 @@ public class DetailFragment extends Fragment {
 				.getSystemService(Context.LOCATION_SERVICE);
 		name = (EditText)getView().findViewById(R.id.name);
 	  address = (EditText)getView().findViewById(R.id.address);
+	  phone = (EditText)getView().findViewById(R.id.phone);
 	  notes = (EditText)getView().findViewById(R.id.notes);
 	  types = (RadioGroup)getView().findViewById(R.id.types);
 	  feed = (EditText)getView().findViewById(R.id.feed);
@@ -124,6 +126,7 @@ public class DetailFragment extends Fragment {
 		
 		state.putString("name", name.getText().toString());
 		state.putString("address", address.getText().toString());
+		state.putString("phone", phone.getText().toString());
 		state.putString("notes", notes.getText().toString());
 		state.putInt("type", types.getCheckedRadioButtonId());
 	}
@@ -201,6 +204,7 @@ public class DetailFragment extends Fragment {
 		c.moveToFirst();
 		name.setText(getHelper().getName(c));
 		address.setText(getHelper().getAddress(c));
+		phone.setText(getHelper().getPhone(c));
 		notes.setText(getHelper().getNotes(c));
 		feed.setText(getHelper().getFeed(c));
 		location.setText(String.valueOf(getHelper().getLatitude(c)) + ", " +
@@ -251,12 +255,14 @@ public class DetailFragment extends Fragment {
 			if (restaurantId == null) {
 				getHelper().insert(name.getText().toString(), 
 						address.getText().toString(), type, 
-						notes.getText().toString(), feed.getText().toString());
+						notes.getText().toString(), feed.getText().toString(),
+						phone.getText().toString());
 			}
 			else {
 				getHelper().update(restaurantId, name.getText().toString(), 
 						address.getText().toString(), type, 
-						notes.getText().toString(), feed.getText().toString());
+						notes.getText().toString(), feed.getText().toString(),
+						phone.getText().toString());
 			}
 		}
 	}

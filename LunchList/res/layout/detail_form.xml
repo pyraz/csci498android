@@ -23,6 +23,11 @@
 					android:id="@+id/address"
 					android:hint="@string/address_hint" />
 		</TableRow>
+		<TableRow>
+			<TextView android:text="@string/phone" />
+			<EditText android:id="@+id/phone"
+				android:inputType="phone" />
+		</TableRow>
 
 		<TableRow>
 			<TextView android:text="@string/type" />
